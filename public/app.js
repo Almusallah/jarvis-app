@@ -1,8 +1,8 @@
 // ============================================================================
-//  JARVIS landing — demo interattiva + i18n EN/IT + founding checkout.
+//  NINE2FIVE landing — demo interattiva + i18n EN/IT + founding checkout.
 // ============================================================================
 const $ = (s, r = document) => r.querySelector(s);
-let LANG = localStorage.getItem("jarvis_lang") || "en";
+let LANG = localStorage.getItem("n2f_lang") || "en";
 
 const I18N = {
   nav_demo: { en: "Demo", it: "Demo" },
@@ -12,8 +12,8 @@ const I18N = {
   hero_eyebrow: { en: "Founding release · limited to 100 seats", it: "Lancio founding · limitato a 100 posti" },
   hero_h1: { en: "Your inbox has a chief of staff now.", it: "La tua inbox ora ha un capo di gabinetto." },
   hero_p: {
-    en: "JARVIS connects to Gmail and Calendar — <b>read-only</b> — and every morning hands you an executive brief: what needs you today, who owes you a reply (and for how long), and reply drafts in your voice. You stay the only one who hits send.",
-    it: "JARVIS si collega a Gmail e Calendar — in <b>sola lettura</b> — e ogni mattina ti consegna un brief esecutivo: cosa richiede te oggi, chi ti deve una risposta (e da quanto), e bozze di risposta con la tua voce. Solo tu premi invio.",
+    en: "NINE2FIVE connects to Gmail and Calendar — <b>read-only</b> — and every morning hands you an executive brief: what needs you today, who owes you a reply (and for how long), and reply drafts in your voice. You stay the only one who hits send.",
+    it: "NINE2FIVE si collega a Gmail e Calendar — in <b>sola lettura</b> — e ogni mattina ti consegna un brief esecutivo: cosa richiede te oggi, chi ti deve una risposta (e da quanto), e bozze di risposta con la tua voce. Solo tu premi invio.",
   },
   hero_cta1: { en: "Start for $10/month", it: "Inizia a $10/mese" },
   hero_cta2: { en: "See a live brief", it: "Guarda un brief dal vivo" },
@@ -41,7 +41,7 @@ const I18N = {
   how_kicker: { en: "How it works", it: "Come funziona" },
   how_h2: { en: "One consent. One brief. Zero risk.", it: "Un consenso. Un brief. Zero rischi." },
   how1_t: { en: "Connect Google", it: "Collega Google" },
-  how1_p: { en: "One sign-in grants read-only access to Gmail and Calendar. JARVIS can never send, delete or modify anything.", it: "Un solo accesso concede la lettura di Gmail e Calendar. JARVIS non può inviare, cancellare o modificare nulla." },
+  how1_p: { en: "One sign-in grants read-only access to Gmail and Calendar. NINE2FIVE can never send, delete or modify anything.", it: "Un solo accesso concede la lettura di Gmail e Calendar. NINE2FIVE non può inviare, cancellare o modificare nulla." },
   how2_t: { en: "Wake up to the brief", it: "Svegliati col brief" },
   how2_p: { en: "Every morning: what needs you, who owes you a reply (with aging — a waiting item never disappears until resolved), what changed in your calendar.", it: "Ogni mattina: cosa richiede te, chi ti deve una risposta (con anzianità — un'attesa non sparisce finché non si risolve), cosa è cambiato in agenda." },
   how3_t: { en: "Approve the drafts", it: "Approva le bozze" },
@@ -133,7 +133,7 @@ async function initCta() {
 function wire() {
   $("#langBtn").addEventListener("click", () => {
     LANG = LANG === "en" ? "it" : "en";
-    localStorage.setItem("jarvis_lang", LANG);
+    localStorage.setItem("n2f_lang", LANG);
     applyI18n(); renderDemo(); initCta();
   });
   document.querySelectorAll(".da-tab").forEach((t2) =>

@@ -1,5 +1,5 @@
 // ============================================================================
-//  JARVIS landing — marketing + live demo + founding-member checkout.
+//  NINE2FIVE landing — marketing + live demo + founding-member checkout.
 //  Nessun segreto richiesto: se PAYMENT_LINK è settato (Stripe Payment Link),
 //  il CTA porta lì; altrimenti raccoglie iscrizioni founding-member su file.
 // ============================================================================
@@ -39,4 +39,4 @@ app.post("/api/waitlist", (req, res) => {
 
 app.get("/healthz", (_req, res) => res.json({ ok: true }));
 
-app.listen(PORT, () => console.log(`🤵 JARVIS landing su http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`🤵 NINE2FIVE landing su http://localhost:${PORT}`));
