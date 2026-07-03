@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JARVIS — Your AI Chief of Staff</title>
+  <meta name="description" content="Connect Gmail and Calendar, get a daily executive brief: what needs you, who owes you a reply, and drafts in your voice. Read-only. $10/month founding price." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="/"><span class="brand-mark">J</span> JARVIS</a>
+      <nav class="nav">
+        <a href="#demo" data-i18n="nav_demo">Demo</a>
+        <a href="#how" data-i18n="nav_how">How it works</a>
+        <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+        <button class="btn ghost" id="langBtn">IT</button>
+        <a href="#pricing" class="btn solid" data-i18n="nav_cta">Get started — $10/mo</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow" data-i18n="hero_eyebrow">Founding release · limited to 100 seats</div>
+        <h1 data-i18n="hero_h1">Your inbox has a chief of staff now.</h1>
+        <p data-i18n="hero_p">JARVIS connects to Gmail and Calendar — <b>read-only</b> — and every morning hands you an executive brief: what needs you today, who owes you a reply (and for how long), and reply drafts in your voice. You stay the only one who hits send.</p>
+        <div class="hero-cta">
+          <a href="#pricing" class="btn solid big" data-i18n="hero_cta1">Start for $10/month</a>
+          <a href="#demo" class="btn outline big" data-i18n="hero_cta2">See a live brief</a>
+        </div>
+        <div class="hero-trust">
+          <span data-i18n="trust1">🔒 Read-only scopes</span>
+          <span data-i18n="trust2">✍️ Drafts only — never sends</span>
+          <span data-i18n="trust3">🗑️ No email bodies stored</span>
+        </div>
+      </div>
+      <div class="hero-card" id="heroCard" aria-hidden="true">
+        <div class="hc-head"><span class="hc-dot"></span><span class="hc-dot"></span><span class="hc-dot"></span><span class="hc-title" data-i18n="hc_title">Morning brief — Thu 3 Jul</span></div>
+        <div class="hc-line hc-sum" data-i18n="hc_sum">3 things need you today. Two people owe you replies — one is 6 days old. Your 14:00 moved.</div>
+        <div class="hc-item act"><b>ACT</b><span data-i18n="hc_i1">Vendor contract: legal flagged clause 7 — reply drafted, needs your call on the cap.</span></div>
+        <div class="hc-item act"><b>ACT</b><span data-i18n="hc_i2">Board deck v3 due tomorrow — Sara asked for your numbers by 17:00.</span></div>
+        <div class="hc-item wait"><b>WAIT 6d</b><span data-i18n="hc_i3">Ahmed — proposal sent Jun 27, still no answer. Nudge drafted.</span></div>
+        <div class="hc-item fyi"><b>FYI</b><span data-i18n="hc_i4">14:00 sync moved to 15:30 (Fatima). No action.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div class="strip-inner">
+      <div class="s-item"><b data-i18n="s1b">8 min</b><span data-i18n="s1s">average morning read</span></div>
+      <div class="s-item"><b data-i18n="s2b">0</b><span data-i18n="s2s">emails sent without you</span></div>
+      <div class="s-item"><b data-i18n="s3b">100%</b><span data-i18n="s3s">waiting-items carried forward until resolved</span></div>
+    </div>
+  </section>
+
+  <main>
+    <section id="demo">
+      <div class="section-head">
+        <div class="kicker" data-i18n="demo_kicker">Live demo</div>
+        <h2 data-i18n="demo_h2">This is what tomorrow morning looks like</h2>
+        <p data-i18n="demo_p">A real brief, generated from a sample inbox. Click around — the drafts too.</p>
+      </div>
+      <div class="demo-app">
+        <div class="da-side">
+          <div class="da-tab active" data-tab="act"><span data-i18n="tab_act">Needs you</span> <em id="nAct">3</em></div>
+          <div class="da-tab" data-tab="wait"><span data-i18n="tab_wait">Waiting on others</span> <em id="nWait">2</em></div>
+          <div class="da-tab" data-tab="fyi"><span data-i18n="tab_fyi">FYI</span> <em id="nFyi">2</em></div>
+        </div>
+        <div class="da-main" id="daMain"></div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="section-head">
+        <div class="kicker" data-i18n="how_kicker">How it works</div>
+        <h2 data-i18n="how_h2">One consent. One brief. Zero risk.</h2>
+      </div>
+      <div class="how-grid">
+        <div class="how-card"><div class="n">1</div><h3 data-i18n="how1_t">Connect Google</h3><p data-i18n="how1_p">One sign-in grants read-only access to Gmail and Calendar. JARVIS can never send, delete or modify anything.</p></div>
+        <div class="how-card"><div class="n">2</div><h3 data-i18n="how2_t">Wake up to the brief</h3><p data-i18n="how2_p">Every morning: what needs you, who owes you a reply (with aging — a waiting item never disappears until resolved), what changed in your calendar.</p></div>
+        <div class="how-card"><div class="n">3</div><h3 data-i18n="how3_t">Approve the drafts</h3><p data-i18n="how3_p">Replies come pre-written in your voice. Copy, tweak, send from your own Gmail. You stay the only sender.</p></div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="section-head">
+        <div class="kicker" data-i18n="pr_kicker">Founding price</div>
+        <h2 data-i18n="pr_h2">$10/month. Locked forever for the first 100.</h2>
+        <p data-i18n="pr_p">Then $19/month. Cancel anytime, your data deleted on request.</p>
+      </div>
+      <div class="price-card">
+        <div class="pc-price">$10<span data-i18n="pc_mo">/month</span></div>
+        <ul>
+          <li data-i18n="pc_f1">✓ Daily executive brief (email + calendar)</li>
+          <li data-i18n="pc_f2">✓ Who-owes-you tracking with carry-forward</li>
+          <li data-i18n="pc_f3">✓ Reply drafts in your voice</li>
+          <li data-i18n="pc_f4">✓ Read-only, drafts-only, no bodies stored</li>
+          <li data-i18n="pc_f5">✓ Founding price locked for life</li>
+        </ul>
+        <div id="ctaArea">
+          <form id="waitForm" class="wait-form">
+            <input type="email" id="waitEmail" required data-i18n-ph="pc_ph" placeholder="you@company.com" />
+            <button class="btn solid big" type="submit" data-i18n="pc_btn">Claim founding seat</button>
+          </form>
+          <div class="pc-note" id="seatsNote"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guard">
+      <div class="section-head">
+        <div class="kicker" data-i18n="g_kicker">Trust</div>
+        <h2 data-i18n="g_h2">Built paranoid, on purpose</h2>
+      </div>
+      <div class="guard-grid">
+        <div class="g-card"><h3 data-i18n="g1_t">Read-only scopes</h3><p data-i18n="g1_p">The Gmail send scope does not exist anywhere in the codebase. It cannot send even by bug.</p></div>
+        <div class="g-card"><h3 data-i18n="g2_t">Derived data only</h3><p data-i18n="g2_p">Raw email bodies are never stored — only the brief items derived from them. Tokens encrypted at rest.</p></div>
+        <div class="g-card"><h3 data-i18n="g3_t">Your voice, your send</h3><p data-i18n="g3_p">Drafts are rendered in the app. Nothing is written to your Gmail, not even as a draft.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-inner">
+      <span>© 2026 JARVIS — <span data-i18n="foot_proto">working prototype · payments handled via Stripe</span></span>
+      <span><a href="mailto:frassiyuri@gmail.com">frassiyuri@gmail.com</a></span>
+    </div>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

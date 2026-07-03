@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: jarvis-app
+    runtime: node
+    plan: free
+    buildCommand: npm install --omit=dev
+    startCommand: node server.js
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: 23.9.0
+      - key: PAYMENT_LINK
+        sync: false

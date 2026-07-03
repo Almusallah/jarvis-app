@@ -1,0 +1,12 @@
+{
+  "name": "jarvis-landing",
+  "version": "0.1.0",
+  "description": "JARVIS — your AI chief of staff. Landing + live demo + founding-price checkout.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": { "express": "^4.19.2" }
+}
