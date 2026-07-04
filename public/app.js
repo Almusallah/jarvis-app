@@ -60,6 +60,8 @@ const I18N = {
   pc_pay: { en: "Subscribe — $10/month", it: "Abbonati — $10/mese" },
   seats: { en: "{n} founding seats left at $10/mo", it: "{n} posti founding rimasti a $10/mese" },
   ok_msg: { en: "🎉 You're in — founding seat #{p} reserved. We'll email your activation link today.", it: "🎉 Ci sei — posto founding n.{p} riservato. Ti mandiamo il link di attivazione oggi." },
+  welcome_t: { en: "🎉 You're a founding member!", it: "🎉 Sei un membro founding!" },
+  welcome_p: { en: "Payment confirmed — check your email for your receipt and activation link.", it: "Pagamento confermato — controlla la tua email per la ricevuta e il link di attivazione." },
   g_kicker: { en: "Trust", it: "Fiducia" },
   g_h2: { en: "Built paranoid, on purpose", it: "Costruito paranoico, di proposito" },
   g1_t: { en: "Read-only scopes", it: "Permessi in sola lettura" },
@@ -68,7 +70,7 @@ const I18N = {
   g2_p: { en: "Raw email bodies are never stored — only the brief items derived from them. Tokens encrypted at rest.", it: "I testi delle email non vengono mai archiviati — solo le voci del brief che ne derivano. Token cifrati a riposo." },
   g3_t: { en: "Your voice, your send", it: "La tua voce, il tuo invio" },
   g3_p: { en: "Drafts are rendered in the app. Nothing is written to your Gmail, not even as a draft.", it: "Le bozze vivono nell'app. Nulla viene scritto nel tuo Gmail, nemmeno come bozza." },
-  foot_proto: { en: "working prototype · payments handled via Stripe", it: "prototipo funzionante · pagamenti gestiti via Stripe" },
+  foot_proto: { en: "working prototype · payments handled by our merchant of record", it: "prototipo funzionante · pagamenti gestiti dal nostro merchant of record" },
 };
 const T = (k, vars) => {
   let s = (I18N[k] || {})[LANG] || (I18N[k] || {}).en || k;
@@ -119,15 +121,60 @@ function applyI18n() {
   $("#langBtn").textContent = LANG === "en" ? "IT" : "EN";
 }
 
+// ---- Checkout (merchant of record) ------------------------------------------
+let paddleReady = false;
+function loadPaddleJs() {
+  return new Promise((resolve, reject) => {
+    if (window.Paddle) return resolve(window.Paddle);
+    const s = document.createElement("script");
+    s.src = "https://cdn.paddle.com/paddle/v2/paddle.js";
+    s.onload = () => resolve(window.Paddle);
+    s.onerror = () => reject(new Error("paddle.js failed to load"));
+    document.head.appendChild(s);
+  });
+}
+
+async function openPaddleCheckout(p) {
+  const Paddle = await loadPaddleJs();
+  if (!paddleReady) {
+    if (p.env) Paddle.Environment.set(p.env);
+    Paddle.Initialize({ token: p.token });
+    paddleReady = true;
+  }
+  Paddle.Checkout.open({
+    items: [{ priceId: p.priceId, quantity: 1 }],
+    settings: { successUrl: location.origin + "/?welcome=1" },
+  });
+}
+
 async function initCta() {
   const cfg = await fetch("/api/config").then((r) => r.json()).catch(() => ({}));
-  if (cfg.paymentLink) {
-    $("#ctaArea").innerHTML = `<a class="btn solid big" style="background:var(--oro);color:var(--ink);width:100%" href="${cfg.paymentLink}">${T("pc_pay")}</a>
+  const payBtn = `style="background:var(--oro);color:var(--ink);width:100%"`;
+  if ((cfg.provider === "lemonsqueezy" || cfg.provider === "link") && cfg.checkoutUrl) {
+    $("#ctaArea").innerHTML = `<a class="btn solid big" ${payBtn} href="${cfg.checkoutUrl}">${T("pc_pay")}</a>
       <div class="pc-note" id="seatsNote"></div>`;
+  } else if (cfg.provider === "paddle" && cfg.paddle) {
+    $("#ctaArea").innerHTML = `<button class="btn solid big" ${payBtn} id="paddleBtn" type="button">${T("pc_pay")}</button>
+      <div class="pc-note" id="seatsNote"></div>`;
+    $("#paddleBtn").addEventListener("click", () =>
+      openPaddleCheckout(cfg.paddle).catch((e) => console.error("paddle checkout:", e))
+    );
   }
-  const n = cfg.founders ?? 13;
+  const n = Math.max(0, Math.min(100, cfg.founders ?? 13));
   const note = $("#seatsNote");
   if (note) note.textContent = T("seats", { n });
+}
+
+// ---- Post-checkout success banner (/?welcome=1) -------------------------------
+function initWelcome() {
+  const q = new URLSearchParams(location.search);
+  if (q.get("welcome") !== "1") return;
+  history.replaceState(null, "", location.pathname + location.hash);
+  const b = document.createElement("div");
+  b.className = "welcome-banner";
+  b.innerHTML = `<b>${T("welcome_t")}</b><span>${T("welcome_p")}</span><button type="button" aria-label="Close">×</button>`;
+  b.querySelector("button").addEventListener("click", () => b.remove());
+  document.body.prepend(b);
 }
 
 function wire() {
@@ -158,4 +205,4 @@ function wire() {
   });
 }
 
-applyI18n(); renderDemo(); initCta(); wire();
+applyI18n(); renderDemo(); initCta(); initWelcome(); wire();

@@ -140,3 +140,9 @@ footer a { color: var(--blu); }
   .strip-inner { grid-template-columns: 1fr; }
   .wait-form { flex-direction: column; }
 }
+
+/* ---- Post-checkout welcome banner ---- */
+.welcome-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: var(--verde); color: #fff; padding: 13px 52px 13px 20px; text-align: center; font-size: 14px; font-weight: 600; box-shadow: 0 2px 14px rgba(0, 0, 0, .22); }
+.welcome-banner b { margin-right: 8px; }
+.welcome-banner button { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: transparent; border: 0; color: #fff; font-size: 22px; line-height: 1; cursor: pointer; padding: 2px 6px; }
+.welcome-banner button:hover { opacity: .8; }
